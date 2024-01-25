@@ -8,10 +8,11 @@ import { FaMoon } from "react-icons/fa";
 const Header = () => {
     const path = useLocation().pathname;
   return (
-      <Navbar className="border-b-2 bg-white border-gray-200 px-1 lg:px-6 py-7 shadow-lg">
+    <div className="shadow-lg z-50 top-0 fixed w-full ">
+      <Navbar className="border-b-2 bg-white border-gray-200 px-1 lg:px-6 py-7 ">
           <Link
             to="/"
-            className="self-center whitespace-nowrap text-lg sm:text-3xl font-semibold dark:text-white"
+            className="self-center whitespace-nowrap text-sm lg:text-2xl font-semibold dark:text-white"
           >
             <h1 className="px-2 py-1 bg-gradient-to-r from-orange-500 via-white to-green-600 rounded-lg text-blue-500">
               EkBharatStories
@@ -39,7 +40,7 @@ const Header = () => {
               to="/signin"
               className="text-lg sm:text-xl"
             >
-              <Button gradientDuoTone="purpleToBlue" outline>Sign In</Button>
+              <Button gradientDuoTone="purpleToBlue" outline size='sm'>Sign In</Button>
             </Link>
             <Navbar.Toggle />
           </div>
@@ -56,13 +57,14 @@ const Header = () => {
                         <h1 className="text-2xl font-normal">News Letter</h1>
                     </Link>
                 </Navbar.Link>
-                <Navbar.Link active = {path === "/about"} >
+                <Navbar.Link active = {path === "/about"} as={'div'}>
                     <Link to="/about">
                         <h1 className="text-2xl font-normal">About</h1>
                     </Link>
                 </Navbar.Link>
             </Navbar.Collapse>
       </Navbar>
+      </div>
 
   );
 };
