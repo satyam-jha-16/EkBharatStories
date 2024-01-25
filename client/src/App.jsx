@@ -6,6 +6,7 @@ import Signin from './pages/Signin'
 import About from './pages/About'
 import Header from './components/Header'
 import Newsletter from './pages/Newsletter'
+import FooterComp from './components/FooterComp'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <FooterComp/>
     </BrowserRouter>
   )
 }

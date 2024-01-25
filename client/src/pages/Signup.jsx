@@ -102,11 +102,6 @@ function Signup() {
             {errormessage}
           </Alert>
         )}
-        {errormessage || (
-          <Alert className='mt-3' color='success'>
-            "Account created successfully"
-          </Alert>
-        )}
       </div>
     </div>
   )
