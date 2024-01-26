@@ -4,7 +4,7 @@ import weblogo from '../assets/LOGO-EBSB.png'
 import {BsInstagram, BsTwitter, BsLinkedin, BsGithub} from 'react-icons/bs'
 function FooterComp() {
   return (
-    <Footer container className="border-t-8 border-teal-400">
+    <Footer container className="border-t-8 border-teal-400 mt-32">
       <div className='w-full max-w-7xl mx-auto'>
         <div className='grid w-full justify-between sm:flex md:grid-cols-2 '>
           <div className='mt-5 flex'>

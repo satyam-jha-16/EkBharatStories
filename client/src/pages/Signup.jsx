@@ -44,7 +44,7 @@ function Signup() {
 
   }
   return (
-    <div className='min-h-screen mt-32 lg:mt-52'>
+    <div className='min-h-full mt-32 lg:mt-52'>
       <div className=' bg-slate-100 lg:max-w-xl lg:mx-auto pt-9 pb-16 m-3 rounded-3xl shadow-lg'>
         <h1 className='text-center text-3xl'>Create Account</h1>
         <form className='flex items-center flex-col flex-1' onSubmit={handleSubmit}>
