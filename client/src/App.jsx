@@ -7,6 +7,7 @@ import About from './pages/About'
 import Header from './components/Header'
 import Newsletter from './pages/Newsletter'
 import FooterComp from './components/FooterComp'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
 
@@ -15,7 +16,9 @@ function App() {
     <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route element = {<PrivateRoute />} > 
         <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />

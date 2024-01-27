@@ -49,9 +49,9 @@ function Signin() {
   };
 
   return (
-    <div className="mt-32 min-h-full lg:mt-52">
-      <div className=" bg-slate-100 lg:max-w-xl lg:mx-auto pt-9 pb-16 m-3 rounded-3xl shadow-lg">
-        <h1 className="text-center text-3xl">Welcome Back</h1>
+    <div className="mt-32 min-h-full lg:mt-24 dark:bg-black">
+      <div className=" bg-slate-100 dark:bg-gray-700 lg:max-w-xl lg:mx-auto pt-32 pb-32 m-3 rounded-3xl shadow-lg">
+        <h1 className="text-center  text-3xl">Welcome Back</h1>
         <form
           className="flex items-center flex-col flex-1"
           onSubmit={handleSubmit}
