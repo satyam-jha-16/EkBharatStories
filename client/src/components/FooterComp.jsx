@@ -92,7 +92,7 @@ function FooterComp() {
         </div>
         <Footer.Divider />
         <div className='w-full sm:flex sm:items-center sm:justify-between'>
-          <Footer.Copyright href='https://github.com/satyam-jha-16/EkBharatStories' by='Ek Bharat Shrestha Bharat GGSIPU EDC' year={new Date().getFullYear()} />
+          <Footer.Copyright href='https://github.com/satyam-jha-16/EkBharatStories' by='Designed and maintained by Satyam Jha' year={new Date().getFullYear()} />
           <div className='flex gap-6 mt-4 sm:mt-0 sm:justify-center'>
             <Footer.Icon href='https://twitter.com/EBSB_EDC' icon={BsInstagram} />
             <Footer.Icon href='https://twitter.com/EBSB_EDC' icon={BsTwitter} />
