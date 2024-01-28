@@ -19,9 +19,11 @@ import {
   updateSuccess,
   deleteFailure,
   deleteStart,
-  deleteSuccess
+  deleteSuccess,
+  signoutSuccess
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -35,7 +37,8 @@ function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
   const user = useSelector((state) => state.user.currentUser);
-  const error = useSelector((state) => state.user);
+  const error = useSelector((state) => state.user.error);
+  const loading = useSelector((state) => state.user.loading);
   const filePickRef = React.useRef();
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -119,6 +122,22 @@ function Profile() {
     }
   };
 
+  const handleSignout = async () => {
+    try {
+        const res = await fetch('/api/user/signout', {
+            method:"POST"
+        })
+        const data = res.json()
+        if(!res.ok){
+            console.log("unable to signout");
+        } else{
+            dispatch(signoutSuccess())
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+  }
+
   const handleDeleteUser = async () => {
     setShowModal(false)
     try {
@@ -198,6 +217,7 @@ function Profile() {
           placeholder="username"
           defaultValue={user.username}
           onChange={handleChange}
+          className="w-full"
         />
         <TextInput
           type="email"
@@ -206,28 +226,43 @@ function Profile() {
           placeholder="email"
           defaultValue={user.email}
           onChange={handleChange}
+          className="lg:w-96"
         />
         <TextInput
           type="password"
           id="password"
           label="password"
-          placeholder="password"
+          placeholder="update password"
           defaultValue={""}
           onChange={handleChange}
+          className="w-full"
         />
         <Button
           type='submit'
           color="primary"
           gradientDuoTone={"purpleToBlue"}
           outline
-          className="self-center"
+          className="self-center w-full"
+          disabled = {imageFileUploading || loading}
         >
-          Update
+          Update profile
         </Button>
+        <Link to="/create-post">
+        <Button
+          type="button"
+          color="primary"
+          gradientDuoTone={"purpleToPink"}
+          outline
+          className="self-center w-full"
+          >
+          create a post
+        </Button>
+        </Link>
+        
       </form>
       <div className="flex justify-between pt-9">
         <span className="cursor-pointer text-red-600" onClick={() => {setShowModal(true)}}>Delete Account</span>
-        <span className="cursor-pointer text-blue-600">Sign Out</span>
+        <span className="cursor-pointer text-blue-600" onClick={handleSignout}>Sign Out</span>
       </div>
       {
         updateUserSuccess && <Alert className="mt-5" color="success">{updateUserSuccess}</Alert>
@@ -235,9 +270,9 @@ function Profile() {
         {
             updateUserError && <Alert className="mt-5" color="failure">{updateUserError}</Alert>
         }
-        {/* {
+        {
             error && <Alert className="mt-5" color="failure">{error}</Alert>
-        } */}
+        }
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

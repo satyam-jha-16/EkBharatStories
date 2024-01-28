@@ -62,7 +62,7 @@ export const signin = async (req, res, next) =>{
           return next(errorHandler(400, 'Invalid password'));
         }
         const token = jwt.sign(
-          { id: validUser._id },process.env.SECRET_KEY
+          { id: validUser._id, isAdmin:validUser.isAdmin },process.env.SECRET_KEY
         );
     
         const { password: pass, ...rest } = validUser._doc;
@@ -80,11 +80,12 @@ export const signin = async (req, res, next) =>{
 
 export const google = async (req, res, next) =>{
   const {name, email, photoUrl} = req.body
+  // console.log("body", req.body);
   try {
     const user = await User.findOne({email})
-    if(user){
+    if(user != null){
       const token = jwt.sign(
-        { id: user._id },process.env.SECRET_KEY
+        { id: user._id, isAdmin: user.isAdmin },process.env.SECRET_KEY
       );
       const { password, ...rest } = user._doc;  
       res
@@ -94,17 +95,20 @@ export const google = async (req, res, next) =>{
         })
         .json(rest);
     }else{
+
       const generatedPass = Math.random().toString(36).slice(-8);
-      const hashedPass = bcryptjs.hashSync(generatedPass, 10)
+      const hashedPass = bcryptjs.hashSync(generatedPass, 10);
       const newUser = new User ({
-        username : name.toLowerCase().split(" ").join("") + Math.random().slice(-4),
+        username:name,
         email,
         "password":hashedPass,
         profilePic: photoUrl
     })
+            
+      // console.log("newUser", newUser);
     await newUser.save()
     const token = jwt.sign(
-      { id: newUser._id },process.env.SECRET_KEY);
+      { id: newUser._id, isAdmin: newUser.isAdmin },process.env.SECRET_KEY);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)

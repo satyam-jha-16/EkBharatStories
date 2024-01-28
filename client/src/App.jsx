@@ -8,6 +8,7 @@ import Header from './components/Header'
 import Newsletter from './pages/Newsletter'
 import FooterComp from './components/FooterComp'
 import PrivateRoute from './components/PrivateRoute'
+import CreatePost from './pages/CreatePost'
 
 function App() {
 
@@ -18,6 +19,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route element = {<PrivateRoute />} > 
         <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element = {<PrivateRoute />} > 
+        <Route path="/create-post" element={<CreatePost />} />
         </Route>
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/signup" element={<Signup />} />

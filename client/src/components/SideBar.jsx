@@ -1,10 +1,12 @@
 import React from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiUser } from "react-icons/hi";
+import { HiArrowSmRight, HiDocumentText, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
 function SideBar() {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const [tab, setTab] = useState("");
   useEffect(() => {
@@ -15,16 +17,24 @@ function SideBar() {
   return (
     <Sidebar>
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className="flex flex-col gap-3">
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
               icon={HiUser}
-              label={"User"}
+              label={currentUser.isAdmin ? "Admin" : "User"}
               labelColor="dark"
               as="div"
             >
               Profile
+            </Sidebar.Item>
+          </Link>
+          <Link to="/dashboard?tab=posts">
+            <Sidebar.Item
+            active={tab === "posts"}
+            icon={HiDocumentText}
+            >
+              Your Posts
             </Sidebar.Item>
           </Link>
           <Sidebar.Item

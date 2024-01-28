@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import SideBar from '../components/SideBar'
 import Profile from '../components/Profile'
+import DashPosts from '../components/DashPosts'
 
 
 function Dashboard() {
@@ -23,7 +24,9 @@ function Dashboard() {
       <div className='mx-auto'>
         {/* tab-bar */}
         {tab === 'profile' && <Profile />}
+        {tab === 'posts' && <DashPosts />}
       </div>
+      
     </div>
   )
 }

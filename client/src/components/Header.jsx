@@ -6,10 +6,26 @@ import { Button } from "flowbite-react";
 import { FaMoon } from "react-icons/fa";
 import {useSelector, useDispatch} from "react-redux"
 import { setTheme } from "../redux/theme/themeSlice";
+import { signoutSuccess } from "../redux/user/userSlice";
 const Header = () => {
     const path = useLocation().pathname;
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.user.currentUser)
+    const handleSignout = async () => {
+      try {
+          const res = await fetch('/api/user/signout', {
+              method:"POST"
+          })
+          const data = res.json()
+          if(!res.ok){
+              console.log("unable to signout");
+          } else{
+              dispatch(signoutSuccess())
+          }
+      } catch (error) {
+          console.log(error.message)
+      }
+    }
   return (
     <div className="shadow-lg z-50 top-0 fixed w-full mb-32 ">
       <Navbar className="border-b-2 bg-white border-gray-200 px-1 lg:px-6 py-7 ">
@@ -61,7 +77,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item >Sign out</Dropdown.Item>              
+            <Dropdown.Item  onClick={handleSignout}>Sign out</Dropdown.Item>              
                 
               </Dropdown>
             ):(
@@ -88,6 +104,17 @@ const Header = () => {
                         <h1 className="text-2xl font-normal">News Letter</h1>
                     </Link>
                 </Navbar.Link>
+                {
+                  currentUser && (
+                    <Navbar.Link active = {path === "/create-post"} as={'div'}>
+                    <Link to="create-post">
+                        <h1 className="text-2xl font-normal">Create Post</h1>
+                    </Link>
+                </Navbar.Link>
+
+                  )
+                }
+                
                 <Navbar.Link active = {path === "/about"} as={'div'}>
                     <Link to="/about">
                         <h1 className="text-2xl font-normal">About</h1>
