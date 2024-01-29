@@ -27,7 +27,7 @@ function CreatePost() {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-  console.log(formData);
+  // console.log(formData);
   const handleImageChange = (e) => {
     // console.log('uploading image')
     if (e.target.files[0]) {

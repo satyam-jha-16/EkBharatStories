@@ -27,7 +27,7 @@ const postSchema = new mongoose.Schema(
         },
         author :{
             type:String,
-            default : "Indian citizen"
+            default : "Indian"
         },
     }, 
     {
