@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiDocumentText, HiUser } from "react-icons/hi";
+import { HiArrowSmRight, HiDocumentText, HiUser, HiUserGroup } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -30,11 +30,21 @@ function SideBar() {
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
+           <>
             <Link to="/dashboard?tab=posts" as='div' className="hidden md:block">
               <Sidebar.Item active={tab === "posts"} icon={HiDocumentText}>
                 All Posts
               </Sidebar.Item>
-            </Link>)
+            </Link>
+
+            <Link to="/dashboard?tab=users" as='div' className="hidden md:block">
+              <Sidebar.Item active={tab === "users"} icon={HiUserGroup}>
+                Users
+              </Sidebar.Item>
+            </Link>
+            </> 
+
+            )
 }
            
             <Link to="/dashboard?tab=userposts" className="hidden md:block">

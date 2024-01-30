@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal, Table, Button, TableHead } from "flowbite-react";
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-function DashPosts() {
+function Dashusers() {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [allPost, setAllPost] = useState([]);
+  const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [postIdToDelete, setPostIdToDelete] = useState("");
+  const [userIdToDelete, setuserIdToDelete] = useState("");
 
   const handleShowMore = async () => {
     const startIndex = allPost.length;
@@ -31,31 +31,40 @@ function DashPosts() {
 
   const handleDelete = async () => {
     // console.log(postIdToDelete);
+    console.log(userIdToDelete);
     setShowModal(false);
-    const res = await fetch(`/api/post/deletepost/${postIdToDelete}`,{
-      method: 'DELETE'
-    })
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.log(data.message);
-    } else {
-      setAllPost((prev) =>
-        prev.filter((post) => post._id !== postIdToDelete)
-      );
+    try {
+      // dispatch(deleteStart())
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+          method: 'DELETE'
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUsers((prev) =>
+          prev.filter((user) => user._id !== userIdToDelete)
+        );
+      }
+      
+    } catch (error) {
+        // dispatch(deleteFailure())
+        console.log(error.message);
     }
+
+    
   }
 
   useEffect(() => {
     // console.log(currentUser);
-    const fetchPosts = async () => {
+    const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/post/getposts");
+        const res = await fetch("/api/user/getusers");
         const data = await res.json();
         if (res.ok) {
-          setAllPost(data.posts);
-          if (data.posts.length < 9) {
-            // setShowMore(false);
+          setUsers(data.users);
+          if (data.users.length < 9) {
+            setShowMore(false);
           }
         }
       } catch (error) {
@@ -65,71 +74,60 @@ function DashPosts() {
 
     if (currentUser.isAdmin) {
       // console.log("fetching");
-      fetchPosts();
+      fetchUsers();
     }
   }, [currentUser._id]);
 
-  // console.log(allPost);
+//   console.log(allPost);
 
   return (
     <div className=" table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser.isAdmin && allPost.length > 0 ? (
+      {currentUser.isAdmin && users.length > 0 ? (
         <>
-          <h1 className="text-5xl text-center py-6 pb-14">Admin Access</h1>
+          <h1 className="text-5xl text-center py-6 pb-14">Users Database</h1>
           <Table hoverable className="shadow-lg p-8 ">
             <Table.Head>
-              <Table.HeadCell>Date Updated</Table.HeadCell>
-              <Table.HeadCell>Post Image</Table.HeadCell>
-              <Table.HeadCell>Post Title</Table.HeadCell>
-              <Table.HeadCell>Author</Table.HeadCell>
+              <Table.HeadCell>Date Created</Table.HeadCell>
+              <Table.HeadCell>Profile Image</Table.HeadCell>
+              <Table.HeadCell>Username</Table.HeadCell>
+              {/* <Table.HeadCell>Admin</Table.HeadCell> */}
               <Table.HeadCell>Delete</Table.HeadCell>
-              <Table.HeadCell>
-                <span>Edit</span>
-              </Table.HeadCell>
+              
             </Table.Head>
-            {allPost.map((post) => (
+            {users.map((user) => (
               <Table.Body className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
-                    {new Date(post.updatedAt).toLocaleDateString()}
+                    {new Date(user.createdAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/post/${post.slug}`}>
+                    
                       <img
-                        src={post.image}
-                        alt={post.title}
+                        src={user.profilePic}
+                        alt={user.username}
                         className="w-20 h-10 object-cover bg-gray-500"
                       />
-                    </Link>
+                   
                   </Table.Cell>
                   <Table.Cell>
-                    <Link
-                      className="font-medium text-gray-900 dark:text-white"
-                      to={`/post/${post.slug}`}
-                    >
-                      {post.title}
-                    </Link>
+                    
+                      {user.username}
+    
                   </Table.Cell>
-                  <Table.Cell>{post.author}</Table.Cell>
+                  
                   <Table.Cell>
                     <span
                       onClick={() => {
                         setShowModal(true);
-                        setPostIdToDelete(post._id);
+                        // setPostIdToDelete(post._id);
+                        onclick = setuserIdToDelete(user._id);
                       }}
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
                       Delete
                     </span>
                   </Table.Cell>
-                  <Table.Cell>
-                    <Link
-                      className="text-teal-500 hover:underline"
-                      to={`/update-post/${post._id}`}
-                    >
-                      <span>Edit</span>
-                    </Link>
-                  </Table.Cell>
+                  
                 </Table.Row>
               </Table.Body>
             ))}
@@ -146,16 +144,12 @@ function DashPosts() {
       ) : (
         <div className="text-center">
           <h1 className="text-3xl font-semibold">
-            You have not created any posts yet
+          Fetching Admin data. Please wait ....
           </h1>
           <p className="text-xl">
-            Click the button below to create your first post
+            if this takes too long, please contact the admin
           </p>
-          <Link to="/create-post">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg mt-4">
-              Create Post
-            </button>
-          </Link>
+          
         </div>
       )}
       <Modal
@@ -186,4 +180,4 @@ function DashPosts() {
   );
 }
 
-export default DashPosts;
+export default Dashusers;

@@ -4,6 +4,7 @@ import SideBar from '../components/SideBar'
 import Profile from '../components/Profile'
 import DashPosts from '../components/DashPosts'
 import DashUserPosts from '../components/DashUserPosts'
+import Dashusers from '../components/Dashusers'
 
 
 function Dashboard() {
@@ -27,6 +28,7 @@ function Dashboard() {
         {tab === 'profile' && <Profile />}
         {tab === 'posts' && <DashPosts />}
         {tab === 'userposts' && <DashUserPosts />}
+        {tab === 'users' && <Dashusers />}
       </div>
       
     </div>

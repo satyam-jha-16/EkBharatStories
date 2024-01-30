@@ -9,6 +9,8 @@ import Newsletter from './pages/Newsletter'
 import FooterComp from './components/FooterComp'
 import PrivateRoute from './components/PrivateRoute'
 import CreatePost from './pages/CreatePost'
+import UpdatePost from './pages/UpdatePost'
+import Post from './pages/Post'
 
 function App() {
 
@@ -22,11 +24,13 @@ function App() {
         </Route>
         <Route element = {<PrivateRoute />} > 
         <Route path="/create-post" element={<CreatePost />} />
+        <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/about" element={<About />} />
+        <Route path="/post/:postSlug" element={<Post />} />
       </Routes>
       <FooterComp/>
     </BrowserRouter>

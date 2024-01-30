@@ -35,7 +35,7 @@ function DashUserPosts() {
       fetchPosts()
     } 
   },[currentUser._id])
-  console.log(userPost);
+  // console.log(userPost);
 
   
   const handleShowMore = async () => {
@@ -57,7 +57,7 @@ function DashUserPosts() {
   };
 
   const handleDelete = async () => {
-    console.log(postIdToDelete);
+    // console.log(postIdToDelete);
     setShowModal(false);
     const res = await fetch(`/api/post/deletepost/${postIdToDelete}`,{
       method: 'DELETE'
