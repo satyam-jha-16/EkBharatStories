@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Alert, Button, FooterDivider, TextInput, Textarea } from "flowbite-react";
+import Comment from "./Comment";
 
 function CommentSection({ postId }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [comment, setComment] = React.useState('')
   const [commentError, setCommentError] = React.useState(null)
+  const [dbComments, setDbcomments] = React.useState([])
+//   console.log(dbComments);
+  
   // console.log(currentUser);
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -24,15 +28,33 @@ function CommentSection({ postId }) {
         if(res.ok){
             setComment('')
             setCommentError(null)
+            setDbcomments([...dbComments, data])
         }
         
     } catch (error) {
         setCommentError(error.message)
-        
     }
-    
-
   }
+  useEffect(() => {
+    const getComments = async () => {
+        try {
+            const res = await fetch(`/api/comment/getcomments/${postId}`,{
+                method : "GET"
+            })
+            if(res.ok){
+                const data = await res.json()
+                setDbcomments(data)
+            }
+            
+        } catch (error) {
+            console.log(error.message);
+            
+        }
+
+    }
+    getComments()
+
+  }, [postId]);
   return (
     <div className="max-w-2xl mx-auto p-3">
       {currentUser ? (
@@ -68,9 +90,29 @@ function CommentSection({ postId }) {
             commentError && <Alert color='failure' className='mt-2' show={commentError}>{commentError}</Alert>
           }
           
-        </form>
-        
+        </form> 
       )}
+      {
+        dbComments.length == 0? (
+            <p>No comments yet</p>
+        ) : (<>
+            <div className="my-4 text-sm flex items-center gap-1">
+                <p className="text-lg">Comments</p>
+                <div className="border border-gray-300 py-1 px-2 ">
+                    <p>{dbComments.length}</p>
+                </div>
+            </div>
+            {
+                dbComments.map(comment => (
+                    <Comment 
+                    key={comment._id}
+                    comment = {comment}
+                    />
+                ))
+            }
+            </>
+        )
+      }
     </div>
   );
 }
