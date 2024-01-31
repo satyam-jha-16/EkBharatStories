@@ -72,3 +72,13 @@ export const deleteComment = async (req, res, next) => {
         
     }
 }
+
+export const getAllComments = async (req, res, next) => {
+    try {
+        const comments = await Comment.find().sort({createdAt: -1})
+        res.status(200).json(comments)
+    } catch (error) {
+        next(error);
+        
+    }
+}

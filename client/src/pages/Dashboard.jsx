@@ -5,6 +5,7 @@ import Profile from '../components/Profile'
 import DashPosts from '../components/DashPosts'
 import DashUserPosts from '../components/DashUserPosts'
 import Dashusers from '../components/Dashusers'
+import Dashcomments from '../components/Dashcomments'
 
 
 function Dashboard() {
@@ -27,6 +28,7 @@ function Dashboard() {
         {/* tab-bar */}
         {tab === 'profile' && <Profile />}
         {tab === 'posts' && <DashPosts />}
+        {tab === 'comments' && <Dashcomments />}
         {tab === 'userposts' && <DashUserPosts />}
         {tab === 'users' && <Dashusers />}
       </div>

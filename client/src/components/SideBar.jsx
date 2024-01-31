@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiDocumentText, HiUser, HiUserGroup } from "react-icons/hi";
+import { HiArrowSmRight, HiChartSquareBar, HiDocumentText, HiUser, HiUserGroup } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -40,6 +40,12 @@ function SideBar() {
             <Link to="/dashboard?tab=users" as='div' className="hidden md:block">
               <Sidebar.Item active={tab === "users"} icon={HiUserGroup}>
                 Users
+              </Sidebar.Item>
+            </Link>
+
+            <Link to="/dashboard?tab=comments" as='div' className="hidden md:block">
+              <Sidebar.Item active={tab === "comments"} icon={HiChartSquareBar}>
+                Comments
               </Sidebar.Item>
             </Link>
             </> 
