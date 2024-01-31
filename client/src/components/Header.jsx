@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Dropdown, Navbar, TextInput } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Button } from "flowbite-react";
 import { FaMoon } from "react-icons/fa";
@@ -8,7 +8,9 @@ import {useSelector, useDispatch} from "react-redux"
 import { setTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import logo from '../assets/logo.png'
+
 const Header = () => {
+  const navigate = useNavigate();
     const path = useLocation().pathname;
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.user.currentUser)
@@ -22,6 +24,7 @@ const Header = () => {
               console.log("unable to signout");
           } else{
               dispatch(signoutSuccess())
+              navigate("/signin")
           }
       } catch (error) {
           console.log(error.message)
