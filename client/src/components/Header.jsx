@@ -7,6 +7,7 @@ import { FaMoon } from "react-icons/fa";
 import {useSelector, useDispatch} from "react-redux"
 import { setTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
+import logo from '../assets/logo.png'
 const Header = () => {
     const path = useLocation().pathname;
     const dispatch = useDispatch()
@@ -33,9 +34,10 @@ const Header = () => {
             to="/"
             className="self-center whitespace-nowrap text-sm lg:text-2xl font-semibold dark:text-white"
           >
-            <h1 className="px-2 py-1 bg-gradient-to-r from-orange-500 via-white to-green-600 rounded-lg text-blue-500">
+            {/* <h1 className="px-2 py-1 bg-gradient-to-r from-orange-500 via-white to-green-600 rounded-lg text-blue-500">
               EkBharatStories
-            </h1>
+            </h1> */}
+            <img src={logo} className="w-28 h-28" />
           </Link>
           <form>
             <TextInput

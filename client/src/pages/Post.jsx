@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+
 import CommentSection from "../components/CommentSection";
+import Postcard from "../components/Postcard";
 function Post() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState(null);
 
   useEffect(() => {
     // console.log(postSlug);
@@ -38,7 +41,24 @@ function Post() {
     fetchPost();
   }, [postSlug]);
 
+  useEffect(() => {
+    try {
+      const fetchRecentPosts = async () => {
+        const res = await fetch('/api/post/getposts?limit=4')
+        const data = await res.json();
+        if(res.ok){
+          setRecentPosts(data.posts)
+        }        
+      }
+      fetchRecentPosts()
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }, [])
+
 //   console.log(post);
+console.log(recentPosts);
 
   if (loading)
     return (
@@ -50,7 +70,7 @@ function Post() {
       </div>
     );
   return (
-    <div className="p-3 pt-32 flex flex-col max-w-6xl mx-auto min-h-screen">
+    <div className="p-3 pt-40 flex flex-col max-w-6xl mx-auto min-h-screen ">
       <h1 className="text-3xl mt-10 text-center font-serif max-w-2xl mx-auto lg:text-5xl">
         {post && post.title}
       </h1>
@@ -75,7 +95,18 @@ function Post() {
 
       </div>
       <CommentSection  postId={post._id}/>
+      <div className="flex flex-col items-center my-5 min-w-full">
+        <h1 className="text-xl mt-5 text-center mb-8">Explore more</h1>
+        <div className="flex flex-wrap gap-4 justify-around">
+          {
+            recentPosts && recentPosts.map(post => (
+              <Postcard key={post._id} post= {post} />
+            ))
+          }
+        </div>
+      </div>
     </div>
+    
   );
 }
 

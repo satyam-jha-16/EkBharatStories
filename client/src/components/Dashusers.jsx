@@ -81,7 +81,7 @@ function Dashusers() {
 //   console.log(allPost);
 
   return (
-    <div className=" table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <div className=" table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 mt-16">
       {currentUser.isAdmin && users.length > 0 ? (
         <>
           <h1 className="text-5xl text-center py-6 pb-14">Users Database</h1>

@@ -161,7 +161,7 @@ function Profile() {
     // yooooooo----------------------------------------
   }
   return (
-    <div className="mx-w-lg mx-auto w-full p-3">
+    <div className="mx-w-lg mx-auto w-full p-20">
       <h1 className="py-7 text-center font-semibold text-3xl">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input

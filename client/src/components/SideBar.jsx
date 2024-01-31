@@ -15,7 +15,7 @@ function SideBar() {
     if (tabfromUrl) setTab(tabfromUrl);
   }, [location.search]);
   return (
-    <Sidebar>
+    <Sidebar className="pt-20">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-3">
           <Link to="/dashboard?tab=profile">
