@@ -112,7 +112,7 @@ function CommentSection({ postId }) {
   }
   // console.log(dbComments);
   return (
-    <div className="max-w-2xl mx-auto p-3">
+    <div className="max-w-2xl w-full mx-auto p-3">
       {currentUser ? (
         <div className="flex item-center justify-center gap-1 my-5 text-gray-500 text-lg">
           <p>signedIn as: </p>
@@ -176,6 +176,7 @@ function CommentSection({ postId }) {
         )
       }
        <Modal
+       className="w-full"
         show={showModel}
         onClose={() => setShowModel(false)}
         popup

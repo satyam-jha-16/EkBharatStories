@@ -31,13 +31,13 @@ function Comment({comment, onLike, onDelete}) {
     
     return (
     <div className='flex p-4 border-b dark:border-gray-400'>
-        <div className="flex-shrink-0 mr-3">
+        <div className="flex-shrink-0 mr-3 truncate">
             <img src={user.profilePic} alt={user.username} className='w-10 h-10 rounded-full bg-gray-400'/>
         </div>
         <div className="">
-            <div className="flex gap-2 items-center mb-4">
+            <div className="flex flex-col lg:flex-row gap-2 items-center mb-4 truncate">
                 <span className='text-sm font-bold mr-1 truncate'>{user ? `@${user.username}` : "anonymous"}</span>
-                <span className='text-sm text-gray-500'>{moment(comment.createdAt).fromNow()}</span>
+                <span className='text-sm text-gray-500 '>{moment(comment.createdAt).fromNow()}</span>
             </div>
             <p className='text-gray-500 pb-2'>{comment.content}</p>
             <div className="flex gap-4 items-center max-w-fit">
