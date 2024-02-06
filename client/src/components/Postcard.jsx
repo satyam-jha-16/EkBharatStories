@@ -1,7 +1,10 @@
+// import React from 'react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Postcard({post}) {
+  console.log(post);
+  console.log(post.slug);
   return (
     <div className='group relative w-full lg:w-[500px] border border-blue-500 h-[350px] overflow-hidden rounded-xl transition-all mt-5' >
         <Link to={`/post/${post.slug}`}>

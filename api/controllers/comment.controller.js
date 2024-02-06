@@ -61,9 +61,14 @@ export const deleteComment = async (req, res, next) => {
         if(!comment){
             return next(errorHandler(404, "Comment doesn't exist"))
         }
-        if(!req.user.isAdmin || comment.userId !== req.user.id ){
+        if(req.user.isAdmin){
+            await Comment.findByIdAndDelete(req.params.commentId)
+        res.status(200).json({message: "Comment deleted successfully"})
+        }
+        if(comment.userId !== req.user.id ){
             return next(errorHandler(401, "Unauthorized to delete comment"))
         }
+        
         
         await Comment.findByIdAndDelete(req.params.commentId)
         res.status(200).json({message: "Comment deleted successfully"})

@@ -69,7 +69,9 @@ function DashPosts() {
         <h1 className="text-5xl font-bold mt-5 text-center m-10">Share and Explore your stories</h1>
         <div className="flex flex-wrap gap-4 justify-around">
           {
+            
             allPost && allPost.map(post => (
+              
               <Postcard key={post._id} post= {post} />
             ))
           }
